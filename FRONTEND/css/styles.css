@@ -1,0 +1,463 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.parallax {
+    background: linear-gradient(rgba(27, 47, 69, 0.8), rgba(27, 47, 69, 0.8)), url("../images/t1.jpg") center center;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+
+
+.container {
+    width:1500px;
+    height: 1000px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+.task {
+    margin-bottom: 10px;
+}
+.task-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.progress-container {
+    margin-bottom: 20px;
+}
+.progress {
+    width: 100%;
+    height: 20px;
+    background-color: #56b8e6;
+    border-radius: 50px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.progress-bar {
+    height: 100%;
+    background-color: #56b8e6;
+}
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #56b8e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #56b8e6;
+}
+.leaderboard {
+    margin-top: 40px;
+}
+.leaderboard h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+.leaderboard-item:last-child {
+    border-bottom: none;
+}
+.leaderboard-item span {
+    font-size: 18px;
+}
+.leaderboard-item .score {
+    font-weight: bold;
+}
+/* Existing styles remain unchanged */
+.task-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+/* Existing styles remain unchanged */
+
+.verify-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #56b8e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+.verify-button:hover {
+    background-color: #45a049;
+}
+/* Existing styles remain unchanged */
+
+.link-input {
+    width: calc(100% - 34px); /* Adjust input width */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.verify-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+.verify-button:hover {
+    background-color: #45a049;
+}
+
+.navbar {
+    background: hsla(212, 100%, 94%, 0.7);
+    padding: 0.5rem 1rem;
+  }
+  
+  .navbar .nav-link {
+    color: #000;
+    margin-right: 2rem;
+    padding: 0.5rem 0;
+  }
+  
+  .ml-auto {
+    margin-left: auto;
+  }
+  
+  
+  .navbar .nav-link:hover {
+    color: #555;
+  }
+  
+  .navbar-brand img {
+    height: 50px;
+    margin-left: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-brand img {
+      height: 60px;
+      margin-left: 3.5rem;
+    }
+  
+    .navbar .search-form input[type="search"] {
+      width: 100px;
+      margin-left: 3rem;
+      transition: none;
+  }
+  
+  .navbar .search-form input[type="search"]:focus {
+      width: 100px;
+  }
+  
+  }
+  
+  .navbar .search-form {
+    display: flex;
+    justify-content: center;
+    margin-top: 7px;
+    margin-right: 3rem;
+  }
+  
+  .navbar .search-form input[type="search"] {
+    width: 200px;
+    height: 30px;
+    font-size: 0.8rem;
+    border-radius: 30px;
+    transition: width 0.4s ease-in-out;
+  }
+  
+  .navbar .search-form input[type="search"]:focus {
+    width: 600px; 
+  }
+  /* Existing styles remain unchanged */
+.task-container {
+    margin-bottom: 20px; /* Adjust the margin bottom to create space between tasks */
+}
+.leaderboard {
+    margin-top: 40px; /* Adjust the margin top to create space between tasks and leaderboard */
+}
+/* Global Styles */
+
+
+
+.spacer {
+    height: 100px; /* Adjust this height according to your header's height */
+}
+
+/* Task Styles */
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.progress {
+    height: 15px;
+    background-color: #56b8e6;
+    border-radius: 10px;
+}
+
+.link-input {
+    width: calc(100% - 34px); /* Adjust input width */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.verify-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #1b2f45;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.verify-button:hover {
+    background-color: #45a049;
+}
+
+/* Leaderboard Styles */
+.leaderboard {
+    margin-top: 40px; /* Adjust the margin top to create space between tasks and leaderboard */
+}
+
+.leaderboard-item {
+    margin-bottom: 10px;
+}
+
+.score {
+    margin-left: 10px;
+}
+
+/* Add space between header and tasks */
+.progress-container {
+    margin-top: 20px;
+}
+/* Global Styles */
+
+
+
+
+.custom-header {
+    margin-bottom: 20px;
+}
+
+.spacer {
+    height: 100px; /* Adjust this height according to your header's height */
+}
+
+/* Flexbox Layout */
+.main-content {
+    display: flex;
+    margin-top: 120px; /* Space between header and tasks */
+}
+
+.progress-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.progress {
+    height: 10px;
+    background-color: #56b8e6;
+    border-radius: 5px;
+}
+
+.link-input {
+    width: calc(100% - 34px); /* Adjust input width */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.verify-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #56b8e6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.verify-button:hover {
+    background-color: #56b8e6;
+}
+
+/* Leaderboard Styles */
+.leaderboard {
+    width: 300px;
+}
+
+.leaderboard-item {
+    margin-bottom: 10px;
+}
+
+.score {
+    margin-left: 10px;
+}
+/* Global Styles */
+
+
+
+
+.custom-header {
+    margin-bottom: 20px;
+}
+
+.spacer {
+    height: 100px; /* Adjust this height according to your header's height */
+}
+
+/* Flexbox Layout */
+.main-content {
+    display: flex;
+    margin-top: 120px; /* Space between header and tasks */
+}
+
+.leaderboard-calendar {
+    width: 300px;
+    margin-right: 20px;
+}
+
+.progress-container {
+    flex: 1;
+    margin-left: 20px;
+}
+
+
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+.link-input {
+    width: calc(100% - 34px); /* Adjust input width */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.verify-button {
+    display: block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.verify-button:hover {
+    background-color: #0056b3;
+}
+
+/* Leaderboard Styles */
+.leaderboard {
+    margin-bottom: 20px;
+}
+
+.leaderboard h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+
+.score {
+    font-weight: bold;
+}
+
+/* Calendar Styles */
+.calendar {
+    margin-top: 20px;
+}
+
+.calendar h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th,
+.calendar-table td {
+    padding: 9px;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.pts {
+    display: block;
+    margin-top: 0.5px;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    text-align: right;
+}
+
+.footer {
+    background: hsla(212, 100%, 94%, 0.7);
+    width: 100%;
+    padding: 1rem 0;
+  }
+  
+  .footer footer {
+    max-width: 1200px;
+    margin: 0 auto;
+  }

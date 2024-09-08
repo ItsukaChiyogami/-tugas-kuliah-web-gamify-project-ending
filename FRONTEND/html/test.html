@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamify - Profile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/profile.css">
+</head>
+<body>
+    <!-- Include jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <!-- SVG symbols here -->
+    </svg>
+    <header class="navbar navbar-expand-md navbar-light fixed-top">
+        <a class="navbar-brand d-flex align-items-center" href="../html/profile.html">
+            <img src="../images/logo.png" alt="Logo">
+            <span class="company-name"><strong>Gamify.</strong></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mr-3">
+                    <a class="nav-link active" href="../html/discover.html">Discover</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="../html/activity.html">Activities</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="../html/redeem.html">Redeem</a>
+                </li>
+                <li class="nav-item dropdown" id="profileDropdown">
+                    <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../images/profile.png" alt="Profile Picture" class="rounded-circle" width="30" height="30"> 
+                        <span id="username"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="../html/profile.html">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" id="logoutLink" href="#">Logout</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" id="loginLink" style="display: none;">
+                    <a class="nav-link" href="../html/login.html"><i class="fa fa-user" aria-hidden="true"></i> Login</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="parallax">
+        <div class="profile-container">
+            <div class="profile-left">
+                <h2 class="edit-profile-text">Profile Info</h2>
+                <div class="profile-picture">
+                    <img src="../images/profile.png" alt="Profile Picture">
+                </div>
+                <div class="username" id="profileUsername">User</div>
+            </div>
+            <div class="profile-right">
+                <div class="form-group">
+                    <label for="usernameInput">Username</label>
+                    <input type="text" id="usernameInput" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" disabled>
+                    <button type="button" id="showPassword">Show</button>
+                </div>
+                <button id="editButton">Edit Profile</button>
+                <div id="editButtons" class="hidden">
+                    <button id="saveButton">Save Changes</button>
+                    <button id="cancelButton">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>© 2023 Gamify. All rights reserved.</p>
+    </footer>
+    <!-- Include profile script after jQuery -->
+    <script>
+        $(document).ready(function() {
+            console.log("Email:", localStorage.getItem('email'));
+
+            // Function to fetch user profile data from the server
+            function fetchUserProfile() {
+                const email = localStorage.getItem('email');
+
+                if (!email) {
+                    console.error('Email not found in localStorage.');
+                    showLoginLink(); // Show login link if email is not found
+                    return; 
+                }
+
+                const url = `http://localhost:911/users/profile?email=${encodeURIComponent(email)}`;
+
+                console.log('Fetching user profile with URL:', url);
+
+                // AJAX request to fetch user profile
+                $.ajax({
+                    url: url,
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(userProfile) {
+                        console.log('Raw response:', userProfile);
+
+                        // Check if response is empty
+                        if (!userProfile) {
+                            console.error('Empty response received from server.');
+                            alert('Empty response received from server. Please try again later.');
+                            showLoginLink(); // Show login link on empty response
+                            return;
+                        }
+
+                        console.log('User profile fetched successfully:', userProfile);
+
+                        // Populate user profile data in the HTML
+                        populateUserProfile(userProfile);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error occurred while fetching user profile:', error);
+                        console.log('Status:', status);
+                        console.log('XHR:', xhr);
+                        if (xhr.status === 401) {
+                            alert('Unauthorized. Please log in again.');
+                            handleLogout(); // Handle logout on unauthorized error
+                        } else if (xhr.status === 404) {
+                            alert('User profile not found.');
+                            handleLogout(); // Handle logout if user profile not found
+                        } else {
+                            alert('An error occurred. Please try again later.');
+                            showLoginLink(); // Show login link for other errors
+                        }
+                    }
+                });
+            }
+
+            // Function to populate user profile data in HTML
+            function populateUserProfile(userProfile) {
+                console.log('Populating user profile:', userProfile);
+
+                // Check if userProfile is defined and not empty
+                if (!userProfile || Object.keys(userProfile).length === 0) {
+                    console.error('User profile data is empty or undefined');
+                    // You can show an error message or handle this case appropriately
+                    return;
+                }
+
+                // Update UI to show logged-in user's profile dropdown
+                $('#username').text(userProfile.username || 'N/A');
+                $('#user-points').text(userProfile.points || 'N/A');
+                $('#profileDropdown').show();
+                $('#loginLink').hide();
+
+                console.log('User profile populated');
+
+                // Populate user profile details
+                $('#profileUsername').text(userProfile.username);
+                $('#usernameInput').val(userProfile.username);
+                $('#firstName').val(userProfile.firstName);
+                $('#lastName').val(userProfile.lastName);
+                $('#email').val(userProfile.email);
+
+                // Add event listeners
+                $('#editButton').click(function() {
+                    toggleEditMode(true);
+                });
+
+                $('#saveButton').click(function() {
+                    saveChanges();
+                });
+
+                $('#cancelButton').click(function() {
+                    toggleEditMode(false);
+                });
+
+                $('#showPassword').click(function() {
+                    togglePasswordVisibility();
+                });
+            }
+
+            // Function to show login link and hide profile dropdown
+            function showLoginLink() {
+                $('#loginLink').show();
+                $('#profileDropdown').hide();
+            }
+
+            // Function to handle logout
+            function handleLogout() {
+                // Clear JWT token and email from localStorage
+                localStorage.removeItem('jwtToken');
+                localStorage.removeItem('email');
+                
+                // Redirect to landing page after logout
+                window.location                 .href = "../html/landingpage.html";
+            }
+
+            // Function to toggle edit mode for profile fields
+            function toggleEditMode(editMode) {
+                $('#usernameInput, #firstName, #lastName, #email, #password').prop('disabled', !editMode);
+                $('#editButton').toggle(!editMode);
+                $('#editButtons').toggle(editMode);
+            }
+
+            // Function to save changes to user profile
+            function saveChanges() {
+                const updatedProfile = {
+                    username: $('#usernameInput').val(),
+                    firstName: $('#firstName').val(),
+                    lastName: $('#lastName').val(),
+                    email: $('#email').val(),
+                    password: $('#password').val()
+                };
+
+                $.ajax({
+                    url: `http://localhost:911/users/update`,
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(updatedProfile),
+                    success: function(response) {
+                        alert('Profile updated successfully');
+                        fetchUserProfile(); // Reload profile after update
+                        toggleEditMode(false);
+                    },
+                    error: function(error) {
+                        console.error('Error updating profile:', error);
+                        alert('Failed to update profile');
+                    }
+                });
+            }
+
+            // Function to toggle password visibility
+            function togglePasswordVisibility() {
+                const passwordInput = $('#password');
+                const type = passwordInput.attr('type') === 'password' ? 'text' : 'password';
+                passwordInput.attr('type', type);
+                $('#showPassword').text(type === 'password' ? 'Show' : 'Hide');
+            }
+
+            // Call fetchUserProfile function when the document is ready
+            fetchUserProfile();
+
+            // Attach logout handler to the logout link
+            $(document).on('click', '#logoutLink', function(event) {
+                event.preventDefault();
+                handleLogout();
+            });
+
+            // Toggle dropdown menu
+            $(document).on('click', '.dropdown-toggle', function(event) {
+                event.preventDefault();
+                $(this).next('.dropdown-menu').slideToggle();
+            });
+
+            // Close dropdown menu on outside click
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.dropdown-toggle').length) {
+                    $('.dropdown-menu').slideUp();
+                }
+            });
+        });
+    </script>
+    <!-- Include Bootstrap bundle after jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-whA7hhbvtaoyReIe3GmU9wYFsLJ80dY8lA/QpBJ5Xz/v8qyyF6PbxiHBK7mc0phR" crossorigin="anonymous"></script>
+</body>
+</html>
